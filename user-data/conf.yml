@@ -76,23 +76,5 @@ sections:
         - AUD
         - CAD
         - CHF
-
-- name: International Time
-  icon: fad fa-clock
-  widgets:
-  - type: clock
-    options:
-      timeZone: Asia/Kolkata
-      format: en-GB
-  - type: clock
-    options:
-      timeZone: Europe/London
-      format: en-GB
-  - type: clock
-    options:
-      timeZone: America/New_York
-      format: en-GB
-  - type: clock
-    options:
-      timeZone: Asia/Hong_Kong
-      format: en-GB  
+        - RUB
+        - CNY
