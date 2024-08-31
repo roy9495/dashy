@@ -1,47 +1,98 @@
----
-# Page meta info, like heading, footer text and nav links
 pageInfo:
-  title: Dashy
-  description: Welcome to your new dashboard!
+  title: Cyber News
+  description:
   navLinks:
-  - title: GitHub
-    path: https://github.com/Lissy93/dashy
-  - title: Documentation
-    path: https://dashy.to/docs
+  - title: Portfolio
+    path: https://portfolio-roy9495.vercel.app/
+  - title: Github
+    path: https://github.com/roy9495
+  - title: Blog
+    path: https://threatradar.vercel.app/
 
-# Optional app settings and configuration
 appConfig:
   theme: colorful
+  fontAwesomeKey: c94dc2b452
+  hideComponents:
+    hideSearch: true
+    hideSettings: true
+    hideSplashScreen: true
 
-# Main content - An array of sections, each containing an array of items
 sections:
-- name: Getting Started
-  icon: fas fa-rocket
-  items:
-  - title: Dashy Live
-    description: Development a project management links for Dashy
-    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
-    url: https://live.dashy.to/
-    target: newtab
-  - title: GitHub
-    description: Source Code, Issues and Pull Requests
-    url: https://github.com/lissy93/dashy
-    icon: favicon
-  - title: Docs
-    description: Configuring & Usage Documentation
-    provider: Dashy.to
-    icon: far fa-book
-    url: https://dashy.to/docs
-  - title: Showcase
-    description: See how others are using Dashy
-    url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
-    icon: far fa-grin-hearts
-  - title: Config Guide
-    description: See full list of configuration options
-    url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
-    icon: fas fa-wrench
-  - title: Support
-    description: Get help with Dashy, raise a bug, or get in contact
-    url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
-    icon: far fa-hands-helping
-  
+- name: Hacker News
+  icon: fad fa-newspaper
+  displayData:
+    rows: 2
+  widgets:
+  - type: hackernews-trending
+    options:
+      stories: newstories
+      limit: 8
+
+- name: Tech News
+  icon: fad fa-newspaper
+  displayData:
+    rows: 2
+  widgets:
+  - type: hackernews-trending
+    options:
+      stories: beststories
+      limit: 8
+
+- name: More News
+  icon: fad fa-newspaper
+  displayData:
+    rows: 2
+  widgets:
+  - type: hackernews-trending
+    options:
+      stories: topstories
+      limit: 8
+   
+
+- name: Vulnarability Chart
+  icon: fad fa-chart-scatter
+  displayData:
+    cols: 2
+    rows: 2
+  widgets:
+  - type: embed
+    options:
+      html: <img class="utxo-chart" src="https://dl.acm.org/cms/attachment/230be2cb-98a5-4197-be48-6350fd3dceee/f4.jpg" />
+      css: '.utxo-chart { width: 100%}'
+
+- name: Exchange Rates
+  icon: fad fa-pound-sign
+  widgets:
+  - type: exchange-rates
+    options:
+      apiKey: 00fee8a2d9492a7f2ad5f1b9
+      inputCurrency: USD
+      outputCurrencies:
+        - INR
+        - GBP
+        - EUR
+        - JPY
+        - HKD
+        - AUD
+        - CAD
+        - CHF
+
+- name: International Time
+  icon: fad fa-clock
+  widgets:
+  - type: clock
+    options:
+      timeZone: Asia/Kolkata
+      format: en-GB
+  - type: clock
+    options:
+      timeZone: Europe/London
+      format: en-GB
+  - type: clock
+    options:
+      timeZone: America/New_York
+      format: en-GB
+  - type: clock
+    options:
+      timeZone: Asia/Hong_Kong
+      format: en-GB  
