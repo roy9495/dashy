@@ -54,7 +54,7 @@ sections:
       stories: topstories
       limit: 10
 
-- name: UTXO Chart
+- name: Risk Chart
   icon: fad fa-chart-scatter
   displayData:
     cols: 2
@@ -62,7 +62,7 @@ sections:
   widgets:
   - type: embed
     options:
-      html: <img class="utxo-chart" src="https://utxo.live/hist_utxo_dark.png" />
+      html: <img class="utxo-chart" src="https://github.com/roy9495/public-images/blob/main/sec-chart(1).png?raw=true" />
       css: '.utxo-chart { width: 100%}'
 
 - name: Exchange Rates
