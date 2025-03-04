@@ -1,13 +1,16 @@
 ---
 # Page meta info, like heading, footer text and nav links
 pageInfo:
-  title: Dashy
-  description: Welcome to your new dashboard!
+  title: Cyber News
   navLinks:
   - title: GitHub
-    path: https://github.com/Lissy93/dashy
-  - title: Documentation
-    path: https://dashy.to/docs
+    path: https://github.com/roy9495
+  - title: Portfolio
+    path: https://portfolio-roy9495.vercel.app/
+  - title: Blog
+    path: https://threatradar.vercel.app/
+  - title: LinkedIn
+    path: https://www.linkedin.com/in/roy9495
 
 # Optional app settings and configuration
 appConfig:
