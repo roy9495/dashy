@@ -1,7 +1,8 @@
 ---
 # Page meta info, like heading, footer text and nav links
 pageInfo:
-  title: Cyber News
+  title: Cyber News Dashboard
+  description: Real-time Cyber Security Feeds & Threat Intelligence Monitor
   navLinks:
   - title: GitHub
     path: https://github.com/roy9495
@@ -14,45 +15,74 @@ pageInfo:
 
 # Optional app settings and configuration
 appConfig:
-  theme: colorful
+  theme: dracula
   fontAwesomeKey: c94dc2b452
   hideComponents:
-    hideSearch: true
-    hideSettings: true
+    hideSearch: false # Enabling search is very helpful to filter feed items
+    hideSettings: false # Enabling settings allows switching themes (e.g. matrix, cyberpunk)
     hideSplashScreen: true
 
 # Main content - An array of sections, each containing an array of items
 sections:
 
-- name: Beststories
-  icon: fad fa-newspaper
+- name: Operations Control
+  icon: fas fa-clock
   displayData:
-    rows: 2
+    cols: 2
+    rows: 1
   widgets:
-  - type: hackernews-trending
+  - type: clock
     options:
-      stories: beststories
-      limit: 10
+      timeZone: UTC
+      customCityName: "UTC / Zulu Time"
+      hideSeconds: true
+  - type: clock
+    options:
+      customCityName: "Local Time"
+      hideSeconds: true
 
-- name: Newstories
-  icon: fad fa-newspaper
+- name: Cybersecurity Vulnerabilities
+  icon: fas fa-shield-alt
   displayData:
+    cols: 2
     rows: 2
   widgets:
-  - type: hackernews-trending
+  - type: cve-vulnerabilities
     options:
-      stories: newstories
-      limit: 10
+      limit: 12
+      minScore: 7.0
+      sortBy: publish-date
 
-- name: Topstories
-  icon: fad fa-newspaper
+- name: Cyber Security Alerts & News
+  icon: fas fa-rss
   displayData:
+    cols: 2
     rows: 2
   widgets:
-  - type: hackernews-trending
+  - type: rss-feed
     options:
-      stories: topstories
-      limit: 10
+      rssUrl: https://www.bleepingcomputer.com/feed/
+      limit: 8
+      parseLocally: true
+  - type: rss-feed
+    options:
+      rssUrl: https://feeds.feedburner.com/TheHackersNews
+      limit: 8
+      parseLocally: true
+
+- name: Threat Finance Monitor
+  icon: fab fa-bitcoin
+  displayData:
+    cols: 1
+    rows: 2
+  widgets:
+  - type: crypto-watch-list
+    options:
+      currency: USD
+      assets:
+        - bitcoin
+        - monero
+        - ethereum
 
 - name: Risk Chart
   icon: fad fa-chart-scatter
@@ -62,8 +92,118 @@ sections:
   widgets:
   - type: embed
     options:
-      html: <img class="utxo-chart" src="https://github.com/roy9495/public-images/blob/main/sec-chart(1).png?raw=true" />
-      css: '.utxo-chart { width: 100%}'
+      html: |
+        <div class="risk-chart-container">
+          <canvas class="interactive-risk-chart"></canvas>
+        </div>
+      css: |
+        .risk-chart-container {
+          width: 100%;
+          height: 100%;
+          min-height: 250px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          background: rgba(30, 31, 41, 0.4);
+          border-radius: 8px;
+          padding: 8px;
+          box-sizing: border-box;
+        }
+        .interactive-risk-chart {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      script: |
+        (function() {
+          function renderChart() {
+            var canvases = document.getElementsByClassName('interactive-risk-chart');
+            if (canvases.length === 0) {
+              setTimeout(renderChart, 100);
+              return;
+            }
+            var canvas = null;
+            for (var i = 0; i < canvases.length; i++) {
+              if (!canvases[i].getAttribute('data-chart-initialized')) {
+                canvas = canvases[i];
+                break;
+              }
+            }
+            if (!canvas) return;
+            canvas.setAttribute('data-chart-initialized', 'true');
+            var ctx = canvas.getContext('2d');
+            var threatData = {
+              labels: ['Phishing', 'Ransomware', 'DDoS', 'Supply Chain', 'Cloud Misconfig', 'Insider Threat'],
+              datasets: [
+                {
+                  label: 'Likelihood (1-10)',
+                  data: [8, 6, 7, 5, 8, 4],
+                  backgroundColor: 'rgba(255, 95, 86, 0.2)',
+                  borderColor: 'rgba(255, 95, 86, 1)',
+                  borderWidth: 2,
+                  pointBackgroundColor: 'rgba(255, 95, 86, 1)',
+                },
+                {
+                  label: 'Impact Severity (1-10)',
+                  data: [7, 9, 6, 8, 7, 9],
+                  backgroundColor: 'rgba(80, 250, 123, 0.2)',
+                  borderColor: 'rgba(80, 250, 123, 1)',
+                  borderWidth: 2,
+                  pointBackgroundColor: 'rgba(80, 250, 123, 1)',
+                }
+              ]
+            };
+            new Chart(ctx, {
+              type: 'radar',
+              data: threatData,
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    labels: {
+                      color: '#f8f8f2',
+                      font: { family: 'monospace', size: 10 }
+                    }
+                  },
+                  tooltip: {
+                    backgroundColor: '#1e1f29',
+                    titleColor: '#ff79c6',
+                    bodyColor: '#f8f8f2',
+                    borderColor: '#44475a',
+                    borderWidth: 1
+                  }
+                },
+                scales: {
+                  r: {
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                    pointLabels: {
+                      color: '#f8f8f2',
+                      font: { family: 'monospace', size: 10, weight: 'bold' }
+                    },
+                    ticks: {
+                      color: '#8be9fd',
+                      backdropColor: 'transparent',
+                      font: { size: 8 },
+                      stepSize: 2
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 10
+                  }
+                }
+              }
+            });
+          }
+          if (typeof Chart === 'undefined') {
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+            script.onload = renderChart;
+            document.head.appendChild(script);
+          } else {
+            renderChart();
+          }
+        })();
 
 - name: Exchange Rates
   icon: fad fa-pound-sign
@@ -81,3 +221,18 @@ sections:
         - CAD
         - CHF
         - INR
+
+- name: Hacker News & Tech Trends
+  icon: fab fa-hacker-news
+  displayData:
+    cols: 2
+    rows: 2
+  widgets:
+  - type: hackernews-trending
+    options:
+      stories: topstories
+      limit: 10
+  - type: hackernews-trending
+    options:
+      stories: beststories
+      limit: 10
