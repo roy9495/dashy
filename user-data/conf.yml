@@ -48,6 +48,7 @@ sections:
     rows: 2
   widgets:
   - type: cve-vulnerabilities
+    useProxy: true
     options:
       limit: 12
       minScore: 7.0
@@ -60,11 +61,13 @@ sections:
     rows: 2
   widgets:
   - type: rss-feed
+    useProxy: true
     options:
       rssUrl: https://www.bleepingcomputer.com/feed/
       limit: 8
       parseLocally: true
   - type: rss-feed
+    useProxy: true
     options:
       rssUrl: https://feeds.feedburner.com/TheHackersNews
       limit: 8
